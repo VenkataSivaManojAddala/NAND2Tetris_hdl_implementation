@@ -1,0 +1,18 @@
+CHIP Decoder4to16 {
+    IN a, b, c, d, G;  
+    OUT f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16;   
+
+    PARTS:
+    // Put you code here:
+       Decoder(a=a,b=b,G=G,f1=m,f2=n,f3=o,f4=p);
+       
+       Not(in=m,out=notm);
+       Not(in=n,out=notn);
+       Not(in=o,out=noto);
+       Not(in=p,out=notp);
+       
+       Decoder(a=c,b=d,G=notm,f1=f1,f2=f2,f3=f3,f4=f4);
+       Decoder(a=c,b=d,G=notn,f1=f5,f2=f6,f3=f7,f4=f8);
+       Decoder(a=c,b=d,G=noto,f1=f9,f2=f10,f3=f11,f4=f12);
+       Decoder(a=c,b=d,G=notp,f1=f13,f2=f14,f3=f15,f4=f16);
+}

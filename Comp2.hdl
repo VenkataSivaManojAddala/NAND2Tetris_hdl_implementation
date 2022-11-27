@@ -1,0 +1,32 @@
+CHIP Comp2 {
+   
+      IN a[2],b[2];
+      OUT GT,EQ,LT;
+
+      PARTS:
+      Not(in=a[0],out=nota0);
+      Not(in=a[1],out=nota1);
+      Not(in=b[0],out=notb0);
+      Not(in=b[1],out=notb1);
+      
+      And3input(a=a[0],b=a[1],c=notb1,out=GT1);
+      And3input(a=a[1],b=notb0,c=notb1,out=GT2);
+      And(a=a[0],b=notb0,out=GT3);
+      Or3input(a=GT1,b=GT2,c=GT3,out=GT);
+
+
+      And3input(a=nota1,b=b[0],c=b[1],out=LT1);
+      And3input(a=nota0,b=nota1,c=b[1],out=LT2);
+      And(a=nota0,b=b[0],out=LT3);
+      Or3input(a=LT1,b=LT2,c=LT3,out=LT);
+
+      And4input(a=nota0,b=nota1,c=notb0,d=notb1,out=EQ1);
+      And4input(a=nota0,b=a[1],c=notb0,d=b[1],out=EQ2);
+      And4input(a=a[0],b=nota1,c=b[0],d=notb1,out=EQ3);
+      And4input(a=a[0],b=a[1],c=b[0],d=b[1],out=EQ4);
+      Or4input(a=EQ1,b=EQ2,c=EQ3,d=EQ4,out=EQ);
+}
+
+
+
+      

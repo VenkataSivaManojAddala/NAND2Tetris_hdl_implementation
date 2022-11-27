@@ -1,0 +1,17 @@
+// Implementation of Decoder
+
+CHIP Decoder {
+    IN a, b, G;  
+    OUT f1, f2, f3, f4;   
+
+    PARTS:
+    // Put you code here:
+       Not(in=a,out=nota);
+       Not(in=b,out=notb);
+       Not(in=G,out=nG);
+
+       And3input(a=nota,b=notb,c=nG,out=f1);
+       And3input(a=nota,b=b,c=nG,out=f2);
+       And3input(a=a,b=notb,c=nG,out=f3);
+       And3input(a=a,b=b,c=nG,out=f4);
+}

@@ -1,0 +1,39 @@
+CHIP ALU8 {
+     
+     IN 
+     x[8],y[8],
+     zx,
+     nx,
+     zy,
+     ny,
+     f,
+     no;
+
+     OUT
+     out[8],
+     zr,
+     ng;
+
+     PARTS:
+     Mux8(a=x,b=false,sel=zx,out=x1);
+     Mux8(a=y,b=false,sel=zy,out=y1);
+
+     Not8(in=x1,out=notx1);
+     Mux8(a=x1,b=notx1,sel=nx,out=x2);
+
+     Not8(in=y1,out=noty1);
+     Mux8(a=y1,b=noty1,sel=ny,out=y2);
+
+     Add8(a=x2,b=y2,out=addout);
+     And8(a=x2,b=y2,out=andout);
+
+     Mux8(a=andout,b=addout,sel=f,out=fout);
+
+     Not8(in=fout,out=notfout);
+     Mux8(a=fout,b=notfout,sel=no,out=out,out[0..3]=outfirst,out[4..7]=outsecond,out[7]=ng);
+
+     Or4Way(in=outfirst,out=zr0);
+     Or4Way(in=outsecond,out=zr1);
+     Or(a=zr0,b=zr1,out=zr2);
+     Not(in=zr2,out=zr);
+}
